@@ -11,7 +11,7 @@ public class CardsTest {
 	GameMaster gameMaster;
 
 	@Before
-	protected void setUp() {
+	public void setUp() {
 		gameMaster = GameMaster.instance();
 		gameMaster.setGameBoard(new GameBoardCCGainMoney());
 		gameMaster.setNumberOfPlayers(1);

@@ -12,7 +12,7 @@ public class GameboardTest  {
 	GameBoard gameBoard;
 	
 	@Before
-	protected void setUp() throws Exception {
+	public void setUp() throws Exception {
 		gameBoard = new GameBoard();
 		cell = new PropertyCell();
 		cell.setName("TempCell");

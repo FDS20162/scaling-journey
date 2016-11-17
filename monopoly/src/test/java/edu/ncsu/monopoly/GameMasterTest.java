@@ -12,7 +12,7 @@ public class GameMasterTest {
 	GameMaster gameMaster;
 	
 	@Before
-	protected void setUp() throws Exception {
+	public void setUp() throws Exception {
 		gameMaster = GameMaster.instance();
 		gameMaster.setGameBoard(new GameBoardFull());
 		gameMaster.setNumberOfPlayers(2);

@@ -5,44 +5,37 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-public class GoToJailCardTest  {
+public class LoseMoneyCardTest {
     GameMaster gameMaster;
-    Card jailCard = new JailCard(Card.TYPE_CC);
-    
+    Card loseMoneyCard;
+
     @Before
     public void setUp() {
 		gameMaster = GameMaster.instance();
-		gameMaster.setGameBoard(new GameBoardCCJail());
+		gameMaster.setGameBoard(new GameBoardCCLoseMoney());
 		gameMaster.setNumberOfPlayers(1);
 		gameMaster.reset();
 		gameMaster.setGUI(new MockGUI());
-		gameMaster.getGameBoard().addCard(jailCard);
+		loseMoneyCard = new MoneyCard("Pay 20 dollars", -20, Card.TYPE_CC);
+		gameMaster.getGameBoard().addCard(loseMoneyCard);
     }
     
     @Test
-    public void testJailCardAction() {
+    public void testLoseMoneyCardAction() {
+        int origMoney = gameMaster.getCurrentPlayer().getMoney();
 		Card card = gameMaster.drawCCCard();
-		assertEquals(jailCard, card);
+		assertEquals(loseMoneyCard, card);
 		card.applyAction();
-		Cell cell = gameMaster.getCurrentPlayer().getPosition();
-		assertEquals(gameMaster.getGameBoard().queryCell("Jail"), cell);
+		assertEquals(origMoney - 20, gameMaster.getCurrentPlayer().getMoney());
     }
     
     @Test
-    public void testJailCardLabel() {
-        assertEquals("Go to Jail immediately without collecting" +
-        		" $200 when passing the GO cell", jailCard.getLabel());
-    }
-    
-    @Test
-    public void testJailCardUI() {
+    public void testLoseMoneyCardUI() {
         gameMaster.movePlayer(0, 1);
         assertTrue(gameMaster.getGUI().isDrawCardButtonEnabled());
         assertFalse(gameMaster.getGUI().isEndTurnButtonEnabled());
         gameMaster.btnDrawCardClicked();
         assertFalse(gameMaster.getGUI().isDrawCardButtonEnabled());
-		Cell cell = gameMaster.getCurrentPlayer().getPosition();
-		assertEquals(gameMaster.getGameBoard().queryCell("Jail"), cell);
 		assertTrue(gameMaster.getGUI().isEndTurnButtonEnabled());
     }
 }
