@@ -1,5 +1,7 @@
 package br.pucrs.fds.monopoly;
 
+import static org.junit.Assert.assertTrue;
+
 import org.junit.*;
 
 /**
